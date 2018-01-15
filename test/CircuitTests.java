@@ -5,6 +5,7 @@
  */
 
 import circuit.Circuit;
+import java.util.HashMap;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -44,18 +45,27 @@ public class CircuitTests {
     @Test
     public void testX1AndX2() throws Exception {
         Circuit c = new Circuit();
-        c.getInput("true");
-        c.getInput("true");
+        c.getInput("X1");
+        c.getInput("X2");
         c.getInput("and");
+        
+        HashMap<String, Boolean> map = new HashMap<String, Boolean>();
+        map.put("X1", Boolean.TRUE);
+        map.put("X2", Boolean.TRUE);
+        
         boolean result;
-        result = c.getResult();
+        result = c.getResult(map);
         assertTrue(result);
         
-        c.getInput("true");
-        c.getInput("false");
+        c.getInput("X1");
+        c.getInput("X2");
         c.getInput("and");
+        
+        HashMap<String, Boolean> map1 = new HashMap<String, Boolean>();
+        map1.put("X1", Boolean.TRUE);
+        map1.put("X2", Boolean.FALSE);
         boolean result1;
-        result1 = c.getResult();
+        result1 = c.getResult(map1);
         assertFalse(result1);
     }
     
@@ -63,22 +73,33 @@ public class CircuitTests {
     @Test
     public void testX1AndX2OrX3() throws Exception {
         Circuit c = new Circuit();
-        c.getInput("false");
-        c.getInput("true");
+        c.getInput("X1");
+        c.getInput("X2");
         c.getInput("and");
-        c.getInput("false");
+        c.getInput("X3");
         c.getInput("or");
+        
+        HashMap<String, Boolean> map1 = new HashMap<String, Boolean>();
+        map1.put("X1", Boolean.FALSE);
+        map1.put("X2", Boolean.TRUE);
+        map1.put("X3", Boolean.FALSE);
+        
         boolean result;
-        result = c.getResult();
+        result = c.getResult(map1);
         assertFalse(result);
         
-        c.getInput("false");
-        c.getInput("false");
+        c.getInput("X1");
+        c.getInput("X2");
         c.getInput("and");
-        c.getInput("true");
+        c.getInput("X3");
         c.getInput("or");
+        
+        HashMap<String, Boolean> map = new HashMap<String, Boolean>();
+        map.put("X1", Boolean.FALSE);
+        map.put("X2", Boolean.FALSE);
+        map.put("X3", Boolean.TRUE);
         boolean result1;
-        result1 = c.getResult();
+        result1 = c.getResult(map);
         assertTrue(result1);
     }
    
@@ -86,13 +107,17 @@ public class CircuitTests {
     @Test
     public void testAlwaysTrue() throws Exception {
         Circuit c = new Circuit();
-        c.getInput("true");
-        c.getInput("true");
+        c.getInput("X1");
+        c.getInput("X2");
         c.getInput("negation");
         c.getInput("or");
         
+        HashMap<String, Boolean> map = new HashMap<String, Boolean>();
+        map.put("X1", Boolean.TRUE);
+        map.put("X2", Boolean.TRUE);
+        
         boolean result;
-        result = c.getResult();
+        result = c.getResult(map);
         assertTrue(result);
     }
     

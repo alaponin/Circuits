@@ -5,23 +5,28 @@
  */
 package circuit;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 /**
  *
  * @author arnelaponin
  */
-public class Accept extends CircuitCommand {
-    private boolean value;
-
-    public Accept(Stack valueStack, boolean x) {
+public class Variable extends CircuitCommand {
+    private Boolean value;
+    private String name;
+   private HashMap<String, Boolean> varMap;
+    
+    public Variable(Stack valueStack, HashMap<String, Boolean> varMap,String name) {
         super(valueStack);
-        this.value = x;
+        this.name = name;
+        this.varMap = varMap;
     }
  
 
     @Override
     public void execute() {
+        value = varMap.get(name);
         valueStack.push(value);
     }
     

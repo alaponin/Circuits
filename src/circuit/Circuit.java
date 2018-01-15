@@ -19,9 +19,10 @@ import java.util.Stack;
  * @author arnelaponin
  */
 public final class Circuit {
-    HashMap<String, CircuitCommand> hmap = new HashMap<String, CircuitCommand>();
-    static Stack<Boolean> valueStack = new Stack<Boolean>();
-    static List<CircuitCommand> operations = new ArrayList<CircuitCommand>();
+    private HashMap<String, CircuitCommand> hmap = new HashMap<String, CircuitCommand>();
+    private Stack<Boolean> valueStack = new Stack<Boolean>();
+    private List<CircuitCommand> operations = new ArrayList<CircuitCommand>();
+    private HashMap<String, Boolean> varMap = new HashMap<String, Boolean>();
     
     public Circuit() {
         hmap.put("true", new Accept(valueStack,true));
@@ -31,14 +32,7 @@ public final class Circuit {
         hmap.put("negation", new Negation(valueStack));
     }
     
-    public void build(String... operations) {
-        for (String operation : operations) {
-            if (hmap.containsKey(operation)) {
-                this.operations.add(hmap.get(operation));
-            }
-        }
-        System.out.println(this.operations);
-    }
+    
     
     /**
      * The values and commands are input in reverse polish notation.
@@ -47,14 +41,20 @@ public final class Circuit {
      */
     public void getInput(String input) {
         String command = input;
-        CircuitCommand cc = hmap.get(command);
-        
-        operations.add(cc);
-             
+        CircuitCommand cc;
+        if (hmap.containsKey(command)) {
+            cc = hmap.get(command);
+            operations.add(cc);
+        } else {
+            cc = new Variable(valueStack, varMap, input);
+            operations.add(cc);
+        }
     }
 
-    public boolean getResult() throws Exception {
-        //valueStack = new Stack<Boolean>();
+    public boolean getResult(HashMap<String, Boolean> varMap) throws Exception {
+        this.varMap.clear();
+        this.varMap.putAll(varMap);
+        valueStack.clear();
         for (CircuitCommand cc : operations) {
             try {
                 cc.execute();
