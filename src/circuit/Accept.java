@@ -12,9 +12,9 @@ import java.util.Stack;
  * @author arnelaponin
  */
 public class Accept extends CircuitCommand {
-    private boolean value;
+    private Double value;
 
-    public Accept(Stack valueStack, boolean x) {
+    public Accept(Stack valueStack, Double x) {
         super(valueStack);
         this.value = x;
     }

@@ -13,23 +13,18 @@ import java.util.Stack;
  */
 public class Or extends CircuitCommand {
     
-    private boolean x;
-    private boolean y;
+    private Double x;
+    private Double y;
 
     public Or(Stack valueStack) {
         super(valueStack);
     }
     
-    
-
     @Override
     public void execute() {
        x = valueStack.pop();
        y = valueStack.pop();
-       if (x == false && y == false) {
-           valueStack.push(false);
-       } else {
-           valueStack.push(true);
-       }
+       Double result = 1.0 - (1.0 - x) * (1.0 - y);
+       valueStack.push(result);
     }
 }

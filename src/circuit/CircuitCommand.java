@@ -12,7 +12,7 @@ import java.util.Stack;
  * @author arnelaponin
  */
  public abstract class CircuitCommand implements Cloneable {
-    protected Stack<Boolean> valueStack;
+    protected Stack<Double> valueStack;
      
     public CircuitCommand(Stack valueStack) {
         this.valueStack = valueStack;

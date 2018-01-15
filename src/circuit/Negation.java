@@ -12,22 +12,17 @@ import java.util.Stack;
  * @author arnelaponin
  */
 public class Negation extends CircuitCommand {
-    private boolean x;
+    private Double x;
 
     public Negation(Stack valueStack) {
         super(valueStack);
     }
-    
-    
 
     @Override
     public void execute() {
         x = valueStack.pop();
-        if (x == true) {
-            valueStack.push(false);
-        } else {
-            valueStack.push(true);
-        }
+        Double result = 1.0 - x;
+        valueStack.push(result);
     }
     
 }

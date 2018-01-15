@@ -57,10 +57,6 @@ public class CircuitTests {
         result = c.getResult(map);
         assertTrue(result);
         
-        c.getInput("X1");
-        c.getInput("X2");
-        c.getInput("and");
-        
         HashMap<String, Boolean> map1 = new HashMap<String, Boolean>();
         map1.put("X1", Boolean.TRUE);
         map1.put("X2", Boolean.FALSE);
@@ -88,12 +84,6 @@ public class CircuitTests {
         result = c.getResult(map1);
         assertFalse(result);
         
-        c.getInput("X1");
-        c.getInput("X2");
-        c.getInput("and");
-        c.getInput("X3");
-        c.getInput("or");
-        
         HashMap<String, Boolean> map = new HashMap<String, Boolean>();
         map.put("X1", Boolean.FALSE);
         map.put("X2", Boolean.FALSE);
@@ -119,6 +109,29 @@ public class CircuitTests {
         boolean result;
         result = c.getResult(map);
         assertTrue(result);
+    }
+    
+    @Test
+    public void testX1AndX2Double() throws Exception {
+        Circuit c = new Circuit();
+        c.getInput("X1");
+        c.getInput("X2");
+        c.getInput("and");
+        
+        HashMap<String, Double> map = new HashMap<String, Double>();
+        map.put("X1", 0.0);
+        map.put("X2", 1.0);
+        
+        Double result;
+        result = c.getResultDouble(map);
+        assertEquals(0.0, result, 0.0);
+        
+        HashMap<String, Double> map1 = new HashMap<String, Double>();
+        map.put("X1", 1.0);
+        map.put("X2", 1.0);
+        Double result1;
+        result1 = c.getResultDouble(map1);
+        assertEquals(0.0, result1, 0.0);
     }
     
     

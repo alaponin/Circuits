@@ -12,24 +12,19 @@ import java.util.Stack;
  * @author arnelaponin
  */
 public class And extends CircuitCommand {
-    private boolean x;
-    private boolean y;
+    private Double x;
+    private Double y;
 
     public And(Stack valueStack) {
         super(valueStack);
     }
     
-    
-
     @Override
     public void execute() {
        x = valueStack.pop();
        y = valueStack.pop();
-       if (x == true && y == true) {
-           valueStack.push(true);
-       } else {
-           valueStack.push(false);
-       }
+       Double result = x * y;
+       valueStack.push(result);
     }
     
 }

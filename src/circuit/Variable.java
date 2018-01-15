@@ -13,17 +13,16 @@ import java.util.Stack;
  * @author arnelaponin
  */
 public class Variable extends CircuitCommand {
-    private Boolean value;
+    private Double value;
     private String name;
-   private HashMap<String, Boolean> varMap;
+   private HashMap<String, Double> varMap;
     
-    public Variable(Stack valueStack, HashMap<String, Boolean> varMap,String name) {
+    public Variable(Stack valueStack, HashMap<String, Double> varMap,String name) {
         super(valueStack);
         this.name = name;
         this.varMap = varMap;
     }
  
-
     @Override
     public void execute() {
         value = varMap.get(name);
