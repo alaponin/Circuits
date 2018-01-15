@@ -21,8 +21,8 @@ public class And extends CircuitCommand {
     
     @Override
     public void execute() {
-       x = valueStack.pop();
-       y = valueStack.pop();
+       x = (Double) valueStack.pop();
+       y = (Double) valueStack.pop();
        Double result = x * y;
        valueStack.push(result);
     }

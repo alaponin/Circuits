@@ -47,7 +47,7 @@ public final class Circuit {
             cc = hmap.get(command);
             operations.add(cc);
         } else {
-            cc = new Variable(valueStack, varMap, input);
+            cc = new VariableDouble(valueStack, varMap, input);
             operations.add(cc);
         }
     }

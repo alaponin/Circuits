@@ -23,7 +23,7 @@ public class NewUnaryOperation extends CircuitCommand {
 
     @Override
     public void execute() {
-        x = valueStack.pop();
+        x = (Double) valueStack.pop();
        
        Double result = myFun.evaluate(x);
        valueStack.push(result);

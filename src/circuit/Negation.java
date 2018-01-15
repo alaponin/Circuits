@@ -20,7 +20,7 @@ public class Negation extends CircuitCommand {
 
     @Override
     public void execute() {
-        x = valueStack.pop();
+        x = (Double) valueStack.pop();
         Double result = 1.0 - x;
         valueStack.push(result);
     }

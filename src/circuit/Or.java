@@ -22,8 +22,8 @@ public class Or extends CircuitCommand {
     
     @Override
     public void execute() {
-       x = valueStack.pop();
-       y = valueStack.pop();
+       x = (Double) valueStack.pop();
+       y = (Double) valueStack.pop();
        Double result = 1.0 - (1.0 - x) * (1.0 - y);
        valueStack.push(result);
     }

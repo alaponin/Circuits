@@ -6,27 +6,21 @@
 package circuit;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Stack;
 
 /**
  *
  * @author arnelaponin
  */
-public class Variable extends CircuitCommand {
+public class VariableDouble extends CircuitCommand {
     private Double value;
     private String name;
    private HashMap<String, Double> varMap;
     
-    public Variable(Stack valueStack, HashMap<String, Boolean> varMap,String name) {
+    public VariableDouble(Stack valueStack, HashMap<String, Double> varMap,String name) {
         super(valueStack);
-        HashMap<String, Double> mapDouble = new HashMap();
-        for (Map.Entry<String, Boolean> entry : varMap.entrySet()) {
-            Double result = (entry.getValue() == Boolean.TRUE)? 1.0 : 0.0;
-            mapDouble.put(entry.getKey(), result);
-          }
         this.name = name;
-        this.varMap = mapDouble;
+        this.varMap = varMap;
     }
  
     @Override
