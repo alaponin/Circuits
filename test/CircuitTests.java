@@ -13,6 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import circuit.MyBinaryGate;
+import circuit.MyUnaryGate;
 
 /**
  *
@@ -179,7 +180,9 @@ public class CircuitTests {
     public void testX1AndX2Gte() throws Exception {
         Circuit c = new Circuit();
         c.getInput("X1");
-        c.getInput("X2");
+        c.getInput("X1");
+        c.getInput("negation");
+        c.getInput("and");
         
         
         class Gte implements MyBinaryGate {
@@ -194,16 +197,32 @@ public class CircuitTests {
             }
         }
         c.createNewOperation(new Gte(), "gte");
+        
+        c.getInput("X1");        
         c.getInput("gte");
+
         
         
         HashMap<String, Double> map = new HashMap<String, Double>();
-        map.put("X1", 1.0);
-        map.put("X2", 0.0);
+        map.put("X1", 0.0);
         
         Double result;
         result = c.getResultDouble(map);
         assertEquals(1.0, result, 0.0);
+        
+        HashMap<String, Double> map1 = new HashMap<String, Double>();
+        map1.put("X1", 0.5);
+        
+        Double result1;
+        result1 = c.getResultDouble(map1);
+        assertEquals(0.0, result1, 0.0);
+        
+         HashMap<String, Double> map2 = new HashMap<String, Double>();
+        map2.put("X1", 0.0);
+        
+        Double result2;
+        result2 = c.getResultDouble(map2);
+        assertEquals(1.0, result2, 0.0);
         
     
     }
@@ -215,24 +234,24 @@ public class CircuitTests {
         c.getInput("X2");
         
         
-        class Wierd implements MyBinaryGate {
+        class Weird implements MyUnaryGate {
 
             @Override
-            public Double evaluate(Double var1, Double var2) {
-                return var1 * var1 * 0.5 + var2 * 0.5;
+            public Double evaluate(Double var) {
+                return var * 0.4;
             }
         }
-        c.createNewOperation(new Wierd(), "wierd");
+        c.createNewOperation(new Weird(), "wierd");
         c.getInput("wierd");
         
         
         HashMap<String, Double> map = new HashMap<String, Double>();
         map.put("X1", 1.0);
-        map.put("X2", 0.0);
+        map.put("X2", 1.0);
         
         Double result;
         result = c.getResultDouble(map);
-        assertEquals(.5, result, 0.0);
+        assertEquals(0.4, result, 0.0);
         
     
     }
