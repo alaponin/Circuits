@@ -131,7 +131,34 @@ public class CircuitTests {
         map.put("X2", 1.0);
         Double result1;
         result1 = c.getResultDouble(map1);
-        assertEquals(0.0, result1, 0.0);
+        assertEquals(1.0, result1, 0.0);
+    }
+    
+    @Test
+    public void testX1AndX2OrX3Double() throws Exception {
+        Circuit c = new Circuit();
+        c.getInput("X1");
+        c.getInput("X2");
+        c.getInput("and");
+        c.getInput("X3");
+        c.getInput("or");
+        
+        HashMap<String, Double> map1 = new HashMap<String, Double>();
+        map1.put("X1", 0.5);
+        map1.put("X2", 0.5);
+        map1.put("X3", 0.5);
+        
+        Double result;
+        result = c.getResultDouble(map1);
+        assertEquals(0.625, result, 0.0);
+        
+        HashMap<String, Double> map = new HashMap<String, Double>();
+        map.put("X1", 0.0);
+        map.put("X2", 1.0);
+        map.put("X3", 0.0);
+        Double result1;
+        result1 = c.getResultDouble(map);
+        assertEquals(1.0, result, 0.0);
     }
     
     
