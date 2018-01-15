@@ -95,8 +95,13 @@ public final class Circuit {
         return valueStack.pop();
     }
     
-    public void createNewOperation(MyGate fun, String name) {
-        CircuitCommand newOp = new NewOperation(valueStack, fun);
+    public void createNewOperation(MyBinaryGate fun, String name) {
+        CircuitCommand newOp = new NewBinaryOperation(valueStack, fun);
+        hmap.put(name, newOp);
+    }
+    
+    public void createNewOperation(MyUnaryGate fun, String name) {
+        CircuitCommand newOp = new NewUnaryOperation(valueStack, fun);
         hmap.put(name, newOp);
     }
 }

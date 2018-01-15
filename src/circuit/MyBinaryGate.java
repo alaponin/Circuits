@@ -9,8 +9,7 @@ package circuit;
  *
  * @author Beza Getachew
  */
-public interface MyGate {
-     //public abstract Double evaluate(Double var);
+public interface MyBinaryGate {
      public Double evaluate(Double var1, Double var2);
     
 }

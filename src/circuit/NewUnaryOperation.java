@@ -11,26 +11,22 @@ import java.util.Stack;
  *
  * @author Beza Getachew
  */
-/**
- *
- * @author arnelaponin
- */
-public class NewOperation extends CircuitCommand {
+public class NewUnaryOperation extends CircuitCommand {
     
-    private MyGate myFun;
+    private MyUnaryGate myFun;
     private Double x;
-    private Double y;
 
-    public NewOperation(Stack valueStack, MyGate fun) {
+    public NewUnaryOperation(Stack valueStack, MyUnaryGate fun) {
         super(valueStack);
         this.myFun = fun;
     }
-    
+
     @Override
     public void execute() {
-       x = valueStack.pop();
-       y = valueStack.pop();
-       Double result = myFun.evaluate(y, x);
+        x = valueStack.pop();
+       
+       Double result = myFun.evaluate(x);
        valueStack.push(result);
     }
+    
 }

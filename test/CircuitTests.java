@@ -5,7 +5,6 @@
  */
 
 import circuit.Circuit;
-import circuit.MyGate;
 import java.util.HashMap;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -13,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import circuit.MyBinaryGate;
 
 /**
  *
@@ -182,7 +182,7 @@ public class CircuitTests {
         c.getInput("X2");
         
         
-        class Gte implements MyGate {
+        class Gte implements MyBinaryGate {
 
             @Override
             public Double evaluate(Double var1, Double var2) {
@@ -215,7 +215,7 @@ public class CircuitTests {
         c.getInput("X2");
         
         
-        class Wierd implements MyGate {
+        class Wierd implements MyBinaryGate {
 
             @Override
             public Double evaluate(Double var1, Double var2) {
