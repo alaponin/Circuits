@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
+import jdk.nashorn.internal.objects.NativeArray;
+
 
 /**
  *
@@ -26,8 +28,8 @@ public final class Circuit {
     private HashMap<String, Double> varMap = new HashMap<String, Double>();
     
     public Circuit() {
-        hmap.put("true", new Accept(valueStack, 1.0));
-        hmap.put("false", new Accept(valueStack, 0.0));
+        hmap.put("true", new Accept(valueStack, Boolean.TRUE));
+        hmap.put("false", new Accept(valueStack, Boolean.FALSE));
         hmap.put("and", new And(valueStack));
         hmap.put("or", new Or(valueStack));
         hmap.put("negation", new Negation(valueStack));
@@ -78,6 +80,10 @@ public final class Circuit {
      */
     public Double getResultDouble(HashMap<String, Double> varMap) throws Exception {
         this.varMap.putAll(varMap);
+        for(String key:varMap.keySet()){
+            if(varMap.get(key)>1.0)
+                throw new Exception("Value is not acceptable");
+        }
         valueStack.clear();
         for (CircuitCommand cc : operations) {
             try {
@@ -89,5 +95,16 @@ public final class Circuit {
         return valueStack.pop();
     }
     
-
+    public void createNewOperation(MyGate fun, String name) {
+        CircuitCommand newOp = new NewOperation(valueStack, fun);
+        hmap.put(name, newOp);
+    }
 }
+
+
+//class Myclass implement FunctionInteface{]
+//    static Double fun (Double x, Double y) {
+//        return x  - y;
+//    }
+//}
+

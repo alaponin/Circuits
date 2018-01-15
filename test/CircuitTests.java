@@ -5,6 +5,7 @@
  */
 
 import circuit.Circuit;
+import circuit.MyGate;
 import java.util.HashMap;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -163,8 +164,77 @@ public class CircuitTests {
         map2.put("X1", 0.0);
         map2.put("X2", 2.0);
         Double result2;
-        result2 = c.getResultDouble(map2);
-        assertEquals(1.0, result2, 0.0);
+       
+        try{
+            result2 = c.getResultDouble(map2);
+           fail();
+        }
+        catch(Exception e){
+            assertEquals(e.getMessage(), "Value is not acceptable");
+        }
+       
+    }
+    
+    @Test
+    public void testX1AndX2Gte() throws Exception {
+        Circuit c = new Circuit();
+        c.getInput("X1");
+        c.getInput("X2");
+        
+        
+        class Gte implements MyGate {
+
+            @Override
+            public Double evaluate(Double var1, Double var2) {
+                if (var1 >= var2) {
+                    return 1.0;
+                } else {
+                    return 0.0;
+                }
+            }
+        }
+        c.createNewOperation(new Gte(), "gte");
+        c.getInput("gte");
+        
+        
+        HashMap<String, Double> map = new HashMap<String, Double>();
+        map.put("X1", 1.0);
+        map.put("X2", 0.0);
+        
+        Double result;
+        result = c.getResultDouble(map);
+        assertEquals(1.0, result, 0.0);
+        
+    
+    }
+    
+    @Test
+    public void testX1AndX2Wierd() throws Exception {
+        Circuit c = new Circuit();
+        c.getInput("X1");
+        c.getInput("X2");
+        
+        
+        class Wierd implements MyGate {
+
+            @Override
+            public Double evaluate(Double var1, Double var2) {
+                return var1 * var1 * 0.5 + var2 * 0.5;
+            }
+        }
+        c.createNewOperation(new Wierd(), "wierd");
+        c.getInput("wierd");
+        
+        
+        HashMap<String, Double> map = new HashMap<String, Double>();
+        map.put("X1", 1.0);
+        map.put("X2", 0.0);
+        
+        Double result;
+        result = c.getResultDouble(map);
+        assertEquals(.5, result, 0.0);
+        
+    
     }
     
     

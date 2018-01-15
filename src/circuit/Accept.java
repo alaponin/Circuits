@@ -14,9 +14,10 @@ import java.util.Stack;
 public class Accept extends CircuitCommand {
     private Double value;
 
-    public Accept(Stack valueStack, Double x) {
+    public Accept(Stack valueStack, Boolean x) {
         super(valueStack);
-        this.value = x;
+        Double result = (x == true) ? 1.0 : 0.0;
+        this.value = result;
     }
  
 
